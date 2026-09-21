@@ -86,14 +86,30 @@ body.is-post { --veil: 93%; }
 html.still .corner .ic-slash { display: block; }
 html.still #motion-toggle { opacity: 0.85; }
 
-/* chrome: the website's fixed corners, words for Docs and Blog among the icons */
-.wordmark {
+/* chrome: a brand pill with a burger menu on the left, the website's icon corner on the right */
+.brand {
   position: fixed; top: 14px; left: var(--gutter); z-index: 50;
-  display: inline-flex; align-items: center; height: 34px; padding: 0 14px; border-radius: 999px;
-  font-weight: 600; letter-spacing: -0.01em; color: var(--ink);
+  display: flex; align-items: center; gap: 2px; padding: 0 4px; border-radius: 999px; color: var(--ink);
   background: color-mix(in srgb, var(--surface) 72%, transparent);
   backdrop-filter: saturate(160%) blur(12px); -webkit-backdrop-filter: saturate(160%) blur(12px);
 }
+.wordmark { display: inline-flex; align-items: center; height: 34px; padding: 0 12px 0 6px; font-weight: 600; letter-spacing: -0.01em; color: var(--ink); }
+#menu-toggle .ic-close, #menu-toggle.open .ic-burger { display: none; }
+#menu-toggle.open .ic-close { display: block; }
+#menu-toggle.open { opacity: 1; }
+/* the menu drops from the brand pill; the site-wide links first, the blog's own below a rule */
+.menu {
+  position: absolute; top: 42px; left: 0; min-width: 190px;
+  display: flex; flex-direction: column; padding: 6px;
+  background: var(--raised); border: 1px solid var(--line); border-radius: 14px;
+  box-shadow: 0 12px 32px -12px var(--shadow);
+}
+.menu a { display: flex; align-items: center; gap: 10px; padding: 8px 12px; border-radius: 8px; font-size: 0.95rem; color: var(--ink-2); }
+.menu a:hover, .menu a[aria-current="page"] { color: var(--ink); background: color-mix(in srgb, currentColor 8%, transparent); }
+.menu a[aria-current="page"] { font-weight: 500; }
+.menu-sep { display: flex; align-items: center; gap: 8px; margin: 6px 6px 4px; color: var(--mist); font-family: var(--mono); font-size: 0.72rem; }
+.menu-sep::after { content: ""; flex: 1; border-top: 1px solid var(--line); }
+.menu[hidden] { display: none; }
 .corner {
   position: fixed; top: 14px; right: var(--gutter); z-index: 50;
   display: flex; align-items: center; gap: 2px; padding: 0 4px; border-radius: 999px; color: var(--ink);
@@ -106,8 +122,7 @@ html.still #motion-toggle { opacity: 0.85; }
   transition: opacity 0.2s, background 0.2s;
 }
 .corner-btn:hover { opacity: 1; background: color-mix(in srgb, currentColor 12%, transparent); }
-.corner-text { width: auto; padding: 0 12px; border-radius: 999px; font-size: 0.92rem; font-weight: 500; letter-spacing: -0.005em; }
-.corner-text[aria-current="page"] { opacity: 1; }
+
 .corner .ic-sun { display: none; }
 :root[data-theme="dark"] .corner .ic-sun { display: block; }
 :root[data-theme="dark"] .corner .ic-moon { display: none; }
