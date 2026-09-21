@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+{{ partial "head.html" . }}
+</head>
+<body{{ if .IsPage }} class="is-post"{{ end }}>
+{{ partial "chrome.html" . }}
+<canvas id="field" class="field" aria-hidden="true"></canvas>
+<main class="wrap">
+{{ block "main" . }}{{ end }}
+</main>
+{{ partial "footer.html" . }}
+{{ partial "copy-code.html" . }}
+{{ $js := slice (resources.Get "js/hero_fields.js") (resources.Get "js/field.js") | resources.Concat "js/blog.js" | minify | fingerprint }}
+<script defer src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}"></script>
+</body>
+</html>

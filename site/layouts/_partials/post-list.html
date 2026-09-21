@@ -1,0 +1,19 @@
+<ol class="post-list">
+{{ range . }}
+  <li class="post-card">
+    <a class="card-art" href="{{ .RelPermalink }}" tabindex="-1" aria-hidden="true">
+      {{- $cover := "" }}{{ with .Params.cover }}{{ with $.Resources.GetMatch . }}{{ $cover = .RelPermalink }}{{ end }}{{ end }}
+      {{- if $cover }}<img src="{{ $cover }}" alt="" loading="lazy">{{ else }}{{ partial "sketch.html" . }}{{ end }}
+    </a>
+    <div class="card-body">
+    <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2 January 2006" }}</time>
+    <h2><a href="{{ .RelPermalink }}">{{ .Title }}</a></h2>
+    <p>{{ .Params.summary }}</p>
+    <div class="meta">
+      {{ range .Params.tags }}<a class="tag" href="{{ (printf "/tags/%s/" (urlize .)) | relURL }}">{{ . }}</a>{{ end }}
+      {{ with .Params.notebook_ref }}<span class="pin">notebook · {{ . }}</span>{{ end }}
+    </div>
+    </div>
+  </li>
+{{ end }}
+</ol>

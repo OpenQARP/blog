@@ -1,0 +1,41 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+{{ $title := cond .IsHome .Site.Title (printf "%s — %s" .Title .Site.Title) }}
+<title>{{ $title }}</title>
+{{ $desc := .Params.summary | default .Site.Params.description }}
+<meta name="description" content="{{ $desc }}">
+<meta property="og:title" content="{{ .Title }}">
+<meta property="og:description" content="{{ $desc }}">
+<meta property="og:url" content="{{ .Permalink }}">
+<meta name="theme-color" content="#F3F4F8">
+<link rel="canonical" href="{{ .Permalink }}">
+<link rel="icon" href="data:,">
+{{ with .OutputFormats.Get "rss" }}<link rel="alternate" type="application/rss+xml" title="{{ $.Site.Title }}" href="{{ .Permalink }}">{{ end }}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+{{ $css := resources.Get "css/blog.css" | minify | fingerprint }}
+<link rel="stylesheet" href="{{ $css.RelPermalink }}" integrity="{{ $css.Data.Integrity }}">
+<script>
+  // Runs before first paint: a stored choice wins, otherwise follow the OS.
+  // Same keys as the website and the docs so one choice carries across.
+  (function () {
+    try {
+      var s = localStorage.getItem("qarp-theme") || localStorage.getItem("theme");
+      var dark = (s === "dark" || s === "light") ? s === "dark" : matchMedia("(prefers-color-scheme: dark)").matches;
+      if (dark) document.documentElement.setAttribute("data-theme", "dark");
+    } catch (e) { /* private mode: fall through to light */ }
+  })();
+  // Still mode: the website's stored motion choice wins, otherwise the OS flag.
+  (function () {
+    var s = null;
+    try { s = localStorage.getItem("qarp-motion"); } catch (e) { /* private mode */ }
+    if (s === "still" || (s !== "motion" && matchMedia("(prefers-reduced-motion: reduce)").matches)) document.documentElement.classList.add("still");
+  })();
+</script>
+{{ if .Params.math }}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body, {delimiters: [{left: '$$', right: '$$', display: true}, {left: '\\[', right: '\\]', display: true}, {left: '\\(', right: '\\)', display: false}]});"></script>
+{{ end }}

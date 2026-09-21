@@ -1,0 +1,50 @@
+baseURL = "https://blog.openqarp.com/"
+title = "OpenQARP blog"
+locale = "en"
+capitalizeListTitles = false
+enableRobotsTXT = true
+
+[params]
+  description = "News, use cases and research around OpenQARP, the open-source framework for quantum application research."
+  siteURL = "https://openqarp.github.io/"
+  docsURL = "https://openqarp.github.io/openqarp/"
+  repoURL = "https://github.com/OpenQARP/openqarp"
+
+[module]
+  [[module.mounts]]
+    source = "content"
+    target = "content"
+  [[module.mounts]]
+    source = "_generated"
+    target = "content"
+  [[module.mounts]]
+    source = "static"
+    target = "static"
+  [[module.mounts]]
+    source = "assets"
+    target = "assets"
+  [[module.mounts]]
+    source = "layouts"
+    target = "layouts"
+
+[taxonomies]
+  tag = "tags"
+
+[outputs]
+  home = ["html", "rss"]
+  section = ["html", "rss"]
+  taxonomy = ["html"]
+  term = ["html", "rss"]
+
+[markup]
+  [markup.goldmark.renderer]
+    unsafe = true
+  [markup.goldmark.extensions.passthrough]
+    enable = true
+    [markup.goldmark.extensions.passthrough.delimiters]
+      block = [["$$", "$$"], ["\\[", "\\]"]]
+      inline = [["\\(", "\\)"]]
+  [markup.highlight]
+    noClasses = false
+    lineNos = false
+    guessSyntax = false

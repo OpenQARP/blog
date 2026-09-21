@@ -1,0 +1,11 @@
+# Notebook posts: one entry per post, pinned to a ref in OpenQARP/openqarp.
+# Markdown posts do not go here; they live in site/content/posts/<slug>/.
+#
+# - slug: <slug>                       # examples/blog/<slug>.ipynb in the main repo
+#   ref: <tag or commit>               # the notebook is fetched at exactly this ref
+#   date: 2026-01-01                   # publication date, never in the future
+#   title: "…"
+#   summary: "…"
+#   tags: [use-case]                   # kind first, topical tags after
+#   math: true                         # loads KaTeX; omit when there is no math
+[]

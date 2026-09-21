@@ -1,0 +1,57 @@
+<a class="wordmark" href="{{ .Site.Params.siteURL }}">OpenQARP</a>
+<div class="corner">
+  <button class="corner-btn" id="motion-toggle" type="button" aria-pressed="false" aria-label="Turn the background animation off" title="Background animation">
+    <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M2.5 12c2.2-5.6 4.4-5.6 6.6 0s4.4 5.6 6.6 0 4.4-5.6 6.6 0"/>
+      <path class="ic-slash" d="M4 20L20 4"/>
+    </svg>
+  </button>
+  <button class="corner-btn" id="theme-toggle" type="button" aria-label="Switch to dark theme">
+    <svg class="ic-sun" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round">
+      <circle cx="12" cy="12" r="4.2"/><path d="M12 2.6v2.2M12 19.2v2.2M2.6 12h2.2M19.2 12h2.2M5.4 5.4l1.6 1.6M17 17l1.6 1.6M18.6 5.4L17 7M7 17l-1.6 1.6"/>
+    </svg>
+    <svg class="ic-moon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M20 13.4A8.2 8.2 0 0 1 10.6 4a8.4 8.4 0 1 0 9.4 9.4z"/>
+    </svg>
+  </button>
+  <a class="corner-btn" href="{{ .Site.Params.repoURL }}" aria-label="OpenQARP on GitHub">
+    <svg viewBox="0 0 16 16" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
+  </a>
+  <a class="corner-btn corner-text" href="{{ .Site.Params.docsURL }}">Docs</a>
+  <a class="corner-btn corner-text" href="{{ "/" | relURL }}"{{ if .IsHome }} aria-current="page"{{ end }}>Blog</a>
+</div>
+<script>
+  (function () {
+    var root = document.documentElement;
+    function isDark() { return root.getAttribute("data-theme") === "dark"; }
+    function apply(dark, remember) {
+      if (dark) root.setAttribute("data-theme", "dark"); else root.removeAttribute("data-theme");
+      var btn = document.getElementById("theme-toggle");
+      if (btn) btn.setAttribute("aria-label", dark ? "Switch to light theme" : "Switch to dark theme");
+      var meta = document.querySelector('meta[name="theme-color"]');
+      if (meta) meta.setAttribute("content", dark ? "#201B34" : "#F3F4F8");
+      if (window.QARP_HERO_THEME) window.QARP_HERO_THEME(dark);
+      if (window.QARP_FIELD_SYNC) window.QARP_FIELD_SYNC();
+      if (remember) {
+        try { localStorage.setItem("qarp-theme", dark ? "dark" : "light"); localStorage.setItem("theme", dark ? "dark" : "light"); } catch (e) {}
+      }
+    }
+    apply(isDark(), false);
+    document.getElementById("theme-toggle").addEventListener("click", function () { apply(!isDark(), true); });
+    var motionBtn = document.getElementById("motion-toggle");
+    function applyMotion(still, remember) {
+      root.classList.toggle("still", still);
+      motionBtn.setAttribute("aria-pressed", still ? "true" : "false");
+      motionBtn.setAttribute("aria-label", still ? "Turn the background animation on" : "Turn the background animation off");
+      if (remember) { try { localStorage.setItem("qarp-motion", still ? "still" : "motion"); } catch (e) {} }
+      if (window.QARP_FIELD_SYNC) window.QARP_FIELD_SYNC();
+    }
+    applyMotion(root.classList.contains("still"), false);
+    motionBtn.addEventListener("click", function () { applyMotion(!root.classList.contains("still"), true); });
+    var sys = matchMedia("(prefers-color-scheme: dark)");
+    (sys.addEventListener ? sys.addEventListener.bind(sys, "change") : sys.addListener.bind(sys))(function (e) {
+      var s = null; try { s = localStorage.getItem("qarp-theme") || localStorage.getItem("theme"); } catch (err) {}
+      if (s !== "dark" && s !== "light") apply(e.matches, false);
+    });
+  })();
+</script>
