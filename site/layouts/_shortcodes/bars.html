@@ -1,0 +1,29 @@
+{{- /* Horizontal bars from "label | value" lines, scaled from zero to the largest value.
+      With `highlight`, that row takes the accent and the others go neutral.
+      {{< bars title="…" note="…" unit=" ms" highlight="OpenQARP" >}} */ -}}
+{{- $rows := slice -}}
+{{- $max := 0.0 -}}
+{{- range split (trim .Inner "\n") "\n" -}}
+  {{- $cells := split . "|" -}}
+  {{- if eq (len $cells) 2 -}}
+    {{- $label := trim (index $cells 0) " " -}}
+    {{- $value := trim (index $cells 1) " " -}}
+    {{- $rows = $rows | append (dict "label" $label "value" $value) -}}
+    {{- $max = math.Max $max (float (replace $value "," "")) -}}
+  {{- else if trim . " " -}}
+    {{- errorf "bars in %s: expected \"label | value\", got %q" $.Page.Path . -}}
+  {{- end -}}
+{{- end -}}
+{{- $highlight := .Get "highlight" -}}
+<figure class="bars{{ if $highlight }} has-highlight{{ end }}">
+  <figcaption><strong>{{ .Get "title" }}</strong>{{ with .Get "note" }} <span>{{ . }}</span>{{ end }}</figcaption>
+  <ul>
+  {{- range $rows }}
+    <li{{ if eq .label $highlight }} class="is-highlight"{{ end }}>
+      <span class="bar-label">{{ .label }}</span>
+      <span class="bar-track" aria-hidden="true"><span class="bar" style="width:{{ printf "%.1f" (mul 100 (div (float (replace .value "," "")) $max)) }}%"></span></span>
+      <span class="bar-value">{{ .value }}{{ $.Get "unit" }}</span>
+    </li>
+  {{- end }}
+  </ul>
+</figure>

@@ -6,6 +6,7 @@
 #   date: 2026-01-01                   # publication date, never in the future
 #   title: "…"
 #   summary: "…"
+#   authors: [<id>]                    # ids from site/data/authors.yaml
 #   tags: [use-case]                   # kind first, topical tags after
 #   math: true                         # loads KaTeX; omit when there is no math
 []

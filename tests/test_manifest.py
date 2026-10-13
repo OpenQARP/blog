@@ -10,12 +10,14 @@ GOOD = """
   date: 2026-09-20
   title: "Hello"
   summary: "First post."
+  authors: [ada-lovelace, team]
   tags: [vqe, engines]
 - slug: second
   ref: abc123
   date: 2026-09-21
   title: "Second"
   summary: "Bare minimum."
+  authors: [team]
 """
 
 
@@ -25,7 +27,7 @@ def test_loads_posts(tmp_path):
     posts = load_manifest(p)
     assert posts[0] == Post(
         slug="hello-blog", ref="v0.1.0", date=datetime.date(2026, 9, 20),
-        title="Hello", summary="First post.", tags=("vqe", "engines"),
+        title="Hello", summary="First post.", authors=("ada-lovelace", "team"), tags=("vqe", "engines"),
     )
     assert posts[1].tags == () and posts[1].math is False
 
@@ -42,20 +44,24 @@ def test_empty_manifest(tmp_path):
     "item, needle",
     [
         ("- slug: a\n  ref: x\n  date: 2026-01-01\n  title: t\n", "summary"),
-        ("- ref: x\n  date: 2026-01-01\n  title: t\n  summary: s\n", "slug"),
-        ("- slug: Bad_Slug\n  ref: x\n  date: 2026-01-01\n  title: t\n  summary: s\n", "Bad_Slug"),
-        ("- slug: a\n  ref: x\n  date: not-a-date\n  title: t\n  summary: s\n", "date"),
-        ("- slug: a\n  ref: x\n  date: 2026-01-01\n  title: t\n  summary: s\n  tags: nope\n", "tags"),
-        ("- slug: a\n  ref: x\n  date: 2026-09-20 10:30:00\n  title: t\n  summary: s\n", "date"),
-        ("- slug: a\n  ref: ../x\n  date: 2026-01-01\n  title: t\n  summary: s\n", "ref"),
+        ("- ref: x\n  date: 2026-01-01\n  title: t\n  summary: s\n  authors: [x]\n", "slug"),
+        ("- slug: Bad_Slug\n  ref: x\n  date: 2026-01-01\n  title: t\n  summary: s\n  authors: [x]\n", "Bad_Slug"),
+        ("- slug: a\n  ref: x\n  date: not-a-date\n  title: t\n  summary: s\n  authors: [x]\n", "date"),
+        ("- slug: a\n  ref: x\n  date: 2026-01-01\n  title: t\n  summary: s\n  authors: [x]\n  tags: nope\n", "tags"),
+        ("- slug: a\n  ref: x\n  date: 2026-09-20 10:30:00\n  title: t\n  summary: s\n  authors: [x]\n", "date"),
+        ("- slug: a\n  ref: ../x\n  date: 2026-01-01\n  title: t\n  summary: s\n  authors: [x]\n", "ref"),
         (
-            "- slug: a\n  ref: x\n  date: 2026-01-01\n  title: t\n  summary: s\n  math: yes-please\n",
+            "- slug: a\n  ref: x\n  date: 2026-01-01\n  title: t\n  summary: s\n  authors: [x]\n  math: yes-please\n",
             "math",
         ),
         (
-            "- slug: a\n  ref: x\n  date: 2026-01-01\n  title: t\n  summary: s\n  cover: sub/a.png\n",
+            "- slug: a\n  ref: x\n  date: 2026-01-01\n  title: t\n  summary: s\n  authors: [x]\n  cover: sub/a.png\n",
             "cover",
         ),
+        ("- slug: a\n  ref: x\n  date: 2026-01-01\n  title: t\n  summary: s\n", "missing authors"),
+        ("- slug: a\n  ref: x\n  date: 2026-01-01\n  title: t\n  summary: s\n  authors: someone\n", "authors"),
+        ("- slug: a\n  ref: x\n  date: 2026-01-01\n  title: t\n  summary: s\n  authors: []\n", "authors"),
+        ("- slug: a\n  ref: x\n  date: 2026-01-01\n  title: t\n  summary: s\n  authors: [Ada Lovelace]\n", "authors"),
     ],
 )
 def test_invalid_entries(tmp_path, item, needle):
@@ -74,12 +80,12 @@ def test_duplicate_slug(tmp_path):
 
 def test_math_true_loads(tmp_path):
     p = tmp_path / "posts.yaml"
-    p.write_text("- slug: a\n  ref: x\n  date: 2026-01-01\n  title: t\n  summary: s\n  math: true\n")
+    p.write_text("- slug: a\n  ref: x\n  date: 2026-01-01\n  title: t\n  summary: s\n  authors: [x]\n  math: true\n")
     posts = load_manifest(p)
     assert posts[0].math is True
 
 
 def test_cover_loads(tmp_path):
     p = tmp_path / "posts.yaml"
-    p.write_text("- slug: a\n  ref: x\n  date: 2026-01-01\n  title: t\n  summary: s\n  cover: hero.png\n")
+    p.write_text("- slug: a\n  ref: x\n  date: 2026-01-01\n  title: t\n  summary: s\n  authors: [x]\n  cover: hero.png\n")
     assert load_manifest(p)[0].cover == "hero.png"

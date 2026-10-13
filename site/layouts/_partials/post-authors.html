@@ -1,0 +1,14 @@
+{{- /* Returns a page's authors as entries of data/authors.yaml. An unknown id, or a post
+      without authors, fails the build. */ -}}
+{{- $out := slice -}}
+{{- range (.Params.authors | default slice) -}}
+  {{- with index hugo.Data.authors . -}}
+    {{- $out = $out | append . -}}
+  {{- else -}}
+    {{- errorf "%s: unknown author %q, add it to site/data/authors.yaml" $.Path . -}}
+  {{- end -}}
+{{- end -}}
+{{- if and (not .Params.authors) (eq .Section "posts") -}}
+  {{- errorf "%s: a post needs at least one id under authors" .Path -}}
+{{- end -}}
+{{- return $out -}}

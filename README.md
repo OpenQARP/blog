@@ -28,6 +28,7 @@ A slug lives in exactly one of the two places.
      date: 2026-09-20
      title: "…"
      summary: "…"
+     authors: [<id>]  # ids from site/data/authors.yaml
      tags: [vqe]
      math: true  # loads KaTeX; omit when there is no math
      cover: convergence.png  # optional: a figure from figures/<slug>/, shown next to the post in the list
@@ -46,6 +47,7 @@ Create `site/content/posts/<slug>/index.md`:
 title: "…"
 date: 2026-09-20
 summary: "…"
+authors: [<id>]  # ids from site/data/authors.yaml
 tags: [release]
 math: true  # loads KaTeX; omit when there is no math
 cover: hero.png  # optional: an image in the post folder, shown next to the post in the list
@@ -54,6 +56,32 @@ Body.
 ```
 
 Preview with `python scripts/fetch_posts.py && hugo server -s site` (the fetch also creates the mounted `_generated` folder Hugo needs), open a PR, merge.
+
+## Authors
+
+Every post names its authors. Add yourself once to `site/data/authors.yaml`:
+
+```yaml
+<id>:
+  name: Your Name
+  affiliation: Your Institution  # optional
+  url: https://…                 # optional, linked from the byline
+```
+
+Then list the id under `authors` in the post. A post with no author, or with an id
+that is not in the file, fails the build.
+
+## Charts
+
+A bar chart is a shortcode with one `label | value` line per bar. Bars start at zero
+and every value is printed. `highlight` names the row that takes the accent colour.
+
+```
+{{< bars title="…" note="unit and direction, e.g. lower is better" unit=" ms" highlight="OpenQARP" >}}
+OpenQARP | 41.3
+Other | 51.9
+{{< /bars >}}
+```
 
 ## Local setup
 
@@ -93,3 +121,6 @@ Add topical tags after the kind (`vqe`, `chemistry`, `release`, …).
 Every post gets a small dot sketch next to it in the list, generated from its
 address. Set `cover` in the front matter (or the manifest) to show an image
 from the post's folder instead; square images look best.
+
+A shared link shows `site/static/card.png` as its preview image. A post with a PNG
+or JPEG `cover` shows the cover instead, as a small square card.

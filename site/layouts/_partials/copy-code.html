@@ -1,6 +1,20 @@
 <script>
   // One copy button per code block, top right. Same "copied" flash as the website's pip button.
   (function () {
+    function copy(text, btn) {
+      var done = function () {
+        btn.classList.add("copied");
+        setTimeout(function () { btn.classList.remove("copied"); }, 1500);
+      };
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(done, done);
+      } else {
+        var ta = document.createElement("textarea");
+        ta.value = text; document.body.appendChild(ta); ta.select();
+        try { document.execCommand("copy"); } catch (e) { /* no-op */ }
+        document.body.removeChild(ta); done();
+      }
+    }
     document.querySelectorAll(".prose pre").forEach(function (pre) {
       var box = document.createElement("div");
       box.className = "codeblock";
@@ -13,21 +27,12 @@
       btn.innerHTML = '<svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h9"/></svg><span class="copy-label">copy</span><span class="copy-done" aria-hidden="true">copied</span>';
       btn.addEventListener("click", function () {
         var code = pre.querySelector("code") || pre;
-        var text = code.textContent.replace(/\n$/, "");
-        var done = function () {
-          btn.classList.add("copied");
-          setTimeout(function () { btn.classList.remove("copied"); }, 1500);
-        };
-        if (navigator.clipboard && navigator.clipboard.writeText) {
-          navigator.clipboard.writeText(text).then(done, done);
-        } else {
-          var ta = document.createElement("textarea");
-          ta.value = text; document.body.appendChild(ta); ta.select();
-          try { document.execCommand("copy"); } catch (e) { /* no-op */ }
-          document.body.removeChild(ta); done();
-        }
+        copy(code.textContent.replace(/\n$/, ""), btn);
       });
       box.appendChild(btn);
+    });
+    document.querySelectorAll("[data-copy]").forEach(function (btn) {
+      btn.addEventListener("click", function () { copy(btn.getAttribute("data-copy"), btn); });
     });
   })();
 </script>

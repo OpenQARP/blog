@@ -6,7 +6,7 @@ import pytest
 
 from scripts.fetch_posts import BundleError, Post, check_no_shadow, front_matter, write_bundle
 
-POST = Post(slug="p", ref="v0.1.0", date=datetime.date(2026, 9, 20), title='Say "hi"', summary="s", tags=("a",))
+POST = Post(slug="p", ref="v0.1.0", date=datetime.date(2026, 9, 20), title='Say "hi"', summary="s", authors=("ada-lovelace", "team"), tags=("a",))
 
 
 def test_front_matter_is_yaml_with_pin():
@@ -18,6 +18,10 @@ def test_front_matter_is_yaml_with_pin():
     assert "notebook_url: https://github.com/OpenQARP/openqarp/blob/v0.1.0/examples/blog/p.ipynb" in fm
     assert "math: false" in fm
     assert "- a" in fm
+
+
+def test_front_matter_lists_author_ids():
+    assert "authors:\n- ada-lovelace\n- team\n" in front_matter(POST)
 
 
 def test_write_bundle_copies_images(tmp_path):

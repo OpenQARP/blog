@@ -1,0 +1,8 @@
+{{- /* Plain links: nothing from another site loads until the reader follows one. */ -}}
+<footer class="share">
+  <span class="share-label">Share</span>
+  <a class="tag" href="https://www.linkedin.com/sharing/share-offsite/?url={{ .Permalink }}" target="_blank" rel="noopener">LinkedIn</a>
+  <a class="tag" href="https://x.com/intent/post?text={{ .Title }}&amp;url={{ .Permalink }}" target="_blank" rel="noopener">X</a>
+  <a class="tag" href="https://bsky.app/intent/compose?text={{ printf "%s %s" .Title .Permalink }}" target="_blank" rel="noopener">Bluesky</a>
+  <button class="tag" type="button" data-copy="{{ .Permalink }}"><span class="copy-label">Copy link</span><span class="copy-done" aria-hidden="true">Copied</span></button>
+</footer>

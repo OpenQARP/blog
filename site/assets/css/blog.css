@@ -130,8 +130,13 @@ html.still #motion-toggle { opacity: 0.85; }
 /* page heads and lists */
 .page-head { margin-bottom: 40px; }
 .page-head h1 { font-size: clamp(1.9rem, 4.5vw, 2.6rem); line-height: 1.15; letter-spacing: -0.02em; font-weight: 600; }
-.page-head time, .post-card time { display: block; font-family: var(--mono); font-size: 0.82rem; color: var(--mist); margin-bottom: 10px; }
+.page-head time, .dateline { display: block; font-family: var(--mono); font-size: 0.82rem; color: var(--mist); margin-bottom: 10px; }
 .lede { color: var(--ink-2); font-size: 1.12rem; margin-top: 12px; }
+.intro { color: var(--ink-2); margin-top: 10px; }
+.intro p + p { margin-top: 6px; }
+.byline { margin-top: 14px; font-size: 0.95rem; color: var(--ink-2); }
+.byline a { color: var(--ink); font-weight: 500; text-decoration: underline; text-decoration-color: var(--line-strong); text-underline-offset: 3px; }
+.byline a:hover { color: var(--cobalt); text-decoration-color: currentColor; }
 .meta { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-top: 14px; }
 .tag { font-family: var(--mono); font-size: 0.78rem; padding: 2px 10px; border: 1px solid var(--line-strong); border-radius: 999px; color: var(--ink-2); }
 .tag:hover { border-color: var(--cobalt); color: var(--cobalt); }
@@ -189,10 +194,10 @@ html.still #motion-toggle { opacity: 0.85; }
 }
 .codeblock:hover .copy-code, .copy-code:focus-visible, .copy-code.copied { opacity: 1; }
 .copy-code:hover { color: var(--ink); border-color: var(--line-strong); }
-.copy-code .copy-done { display: none; color: var(--cobalt); }
-.copy-code.copied .copy-label { display: none; }
-.copy-code.copied .copy-done { display: inline; }
-.copy-code.copied { border-color: var(--cobalt); }
+.copy-done { display: none; color: var(--cobalt); }
+.copied .copy-label { display: none; }
+.copied .copy-done { display: inline; }
+.copy-code.copied, .share .copied { border-color: var(--cobalt); }
 @media (hover: none) { .copy-code { opacity: 1; } }
 
 /* Chroma classes (noClasses = false) mapped onto the website's syntax tokens */
@@ -202,6 +207,25 @@ html.still #motion-toggle { opacity: 0.85; }
 .chroma .c, .chroma .c1, .chroma .cm, .chroma .ch, .chroma .cp { color: var(--syn-comment); font-style: italic; }
 .chroma .nb, .chroma .nf, .chroma .fm, .chroma .nc { color: var(--ink); font-weight: 500; }
 .chroma .nd { color: var(--syn-key); }
+
+/* share row under a post */
+.share { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-top: 56px; padding-top: 24px; border-top: 1px solid var(--line); }
+.share-label { font-family: var(--mono); font-size: 0.78rem; color: var(--mist); margin-right: 4px; }
+.share button.tag { background: none; cursor: pointer; line-height: inherit; }
+
+/* bar charts: bars start at zero, every value is printed, colours follow the theme */
+.prose .bars { margin: 1.8em 0 2em; }
+.prose .bars figcaption { text-align: left; font-size: 0.95rem; color: var(--mist); margin: 0 0 12px; }
+.bars figcaption strong { font-weight: 600; color: var(--ink); }
+.prose .bars ul { list-style: none; padding: 0; display: grid; grid-template-columns: minmax(0, max-content) minmax(60px, 1fr) max-content; gap: 8px 14px; align-items: center; }
+.prose .bars li { display: contents; }
+.bar-label { font-size: 0.92rem; color: var(--ink-2); }
+.bar-track { display: block; height: 12px; }
+.bar { display: block; height: 100%; min-width: 2px; border-radius: 0 4px 4px 0; background: var(--cobalt); }
+.bar-value { font-family: var(--mono); font-size: 0.82rem; color: var(--ink-2); text-align: right; font-variant-numeric: tabular-nums; }
+.has-highlight .bar { background: color-mix(in srgb, var(--ink) 30%, transparent); }
+.has-highlight .is-highlight .bar { background: var(--cobalt); }
+.is-highlight .bar-label, .is-highlight .bar-value { color: var(--ink); font-weight: 500; }
 
 /* footer */
 .footer { display: flex; flex-wrap: wrap; gap: 8px 24px; padding: 28px var(--gutter); border-top: 1px solid var(--line); color: var(--mist); font-size: 0.9rem; }

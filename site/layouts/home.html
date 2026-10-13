@@ -2,6 +2,7 @@
 <header class="page-head">
   <h1>{{ .Site.Title }}</h1>
   <p class="lede">{{ .Site.Params.description }}</p>
+  {{ with .Content }}<div class="intro">{{ . }}</div>{{ end }}
 </header>
 {{ $posts := where .Site.RegularPages "Section" "posts" }}
 {{ if $posts }}{{ partial "post-list.html" $posts }}{{ else }}<p class="empty">Nothing here yet.</p>{{ end }}

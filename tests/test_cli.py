@@ -59,7 +59,7 @@ def test_fetch_notebook_read_timeout():
 
 def test_main_end_to_end(tmp_path, monkeypatch):
     monkeypatch.setattr(fetch_posts, "fetch_notebook", lambda slug, ref, opener=None: nbformat.reads(_nb_bytes().decode(), 4))
-    (tmp_path / "posts.yaml").write_text("- slug: p\n  ref: v0.1.0\n  date: 2026-09-20\n  title: T\n  summary: S\n")
+    (tmp_path / "posts.yaml").write_text("- slug: p\n  ref: v0.1.0\n  date: 2026-09-20\n  title: T\n  summary: S\n  authors: [team]\n")
     (tmp_path / "figures" / "p").mkdir(parents=True)
     (tmp_path / "figures" / "p" / "f.png").write_bytes(b"png")
     (tmp_path / "content").mkdir()

@@ -1,9 +1,13 @@
 {{ define "main" }}
+{{ $authors := partial "post-authors.html" . }}
 <article class="post">
   <header class="page-head">
     <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2 January 2006" }}</time>
     <h1>{{ .Title }}</h1>
     <p class="lede">{{ .Params.summary }}</p>
+    {{ with $authors }}
+    <p class="byline">By {{ range $i, $a := . }}{{ if $i }}; {{ end }}{{ if $a.url }}<a href="{{ $a.url }}" rel="author">{{ $a.name }}</a>{{ else }}{{ $a.name }}{{ end }}{{ with $a.affiliation }}, {{ . }}{{ end }}{{ end }}</p>
+    {{ end }}
     <div class="meta">
       {{ range .Params.tags }}<a class="tag" href="{{ (printf "/tags/%s/" (urlize .)) | relURL }}">{{ . }}</a>{{ end }}
     </div>
@@ -14,5 +18,6 @@
     {{ end }}
   </header>
   <div class="prose">{{ .Content }}</div>
+  {{ partial "share.html" . }}
 </article>
 {{ end }}

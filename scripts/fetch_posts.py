@@ -50,7 +50,7 @@ def convert_notebook(nb: nbformat.NotebookNode, slug: str) -> tuple[str, list[st
 
 SLUG_RE = re.compile(r"^[a-z0-9]+(-[a-z0-9]+)*$")
 REF_RE = re.compile(r"[A-Za-z0-9][A-Za-z0-9._/-]*")
-REQUIRED = ("slug", "ref", "date", "title", "summary")
+REQUIRED = ("slug", "ref", "date", "title", "summary", "authors")
 
 
 class ManifestError(ValueError):
@@ -64,6 +64,7 @@ class Post:
     date: datetime.date
     title: str
     summary: str
+    authors: tuple[str, ...]
     tags: tuple[str, ...] = ()
     math: bool = False
     cover: str | None = None
@@ -85,6 +86,9 @@ def _post_from_item(item: object, index: int) -> Post:
     date = item["date"]
     if type(date) is not datetime.date:
         raise ManifestError(f"{slug}: date must be YYYY-MM-DD")
+    authors = item["authors"]
+    if not isinstance(authors, list) or not authors or not all(isinstance(a, str) and SLUG_RE.match(a) for a in authors):
+        raise ManifestError(f"{slug}: authors must be a non-empty list of ids from site/data/authors.yaml")
     tags = item.get("tags", [])
     if not isinstance(tags, list) or not all(isinstance(t, str) for t in tags):
         raise ManifestError(f"{slug}: tags must be a list of strings")
@@ -96,7 +100,7 @@ def _post_from_item(item: object, index: int) -> Post:
         raise ManifestError(f"{slug}: cover must be a plain file name in figures/{slug}/")
     return Post(
         slug=slug, ref=ref, date=date, title=str(item["title"]),
-        summary=str(item["summary"]), tags=tuple(tags), math=math, cover=cover,
+        summary=str(item["summary"]), authors=tuple(authors), tags=tuple(tags), math=math, cover=cover,
     )
 
 
@@ -126,6 +130,7 @@ def front_matter(post: Post) -> str:
         "title": post.title,
         "date": post.date,
         "summary": post.summary,
+        "authors": list(post.authors),
         "tags": list(post.tags),
         "math": post.math,
         "notebook_ref": post.ref,

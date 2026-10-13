@@ -7,6 +7,22 @@
 <meta property="og:title" content="{{ .Title }}">
 <meta property="og:description" content="{{ $desc }}">
 <meta property="og:url" content="{{ .Permalink }}">
+<meta property="og:site_name" content="{{ .Site.Title }}">
+<meta property="og:type" content="{{ if .IsPage }}article{{ else }}website{{ end }}">
+{{- /* A post's cover is square, so it takes the small card; everything else shows the site card. */}}
+{{ $card := dict "url" ("card.png" | absURL) "width" 1200 "height" 630 "kind" "summary_large_image" }}
+{{ with .Params.cover }}{{ with $.Resources.GetMatch . }}{{ if and (eq .MediaType.MainType "image") (ne .MediaType.SubType "svg") }}
+  {{ $card = dict "url" .Permalink "width" .Width "height" .Height "kind" "summary" }}
+{{ end }}{{ end }}{{ end }}
+<meta property="og:image" content="{{ $card.url }}">
+<meta property="og:image:width" content="{{ $card.width }}">
+<meta property="og:image:height" content="{{ $card.height }}">
+<meta name="twitter:card" content="{{ $card.kind }}">
+{{ if .IsPage }}
+<meta property="article:published_time" content="{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}">
+{{ $names := slice }}{{ range partial "post-authors.html" . }}{{ $names = $names | append .name }}{{ end }}
+{{ with $names }}<meta name="author" content="{{ delimit . ", " }}">{{ end }}
+{{ end }}
 <meta name="theme-color" content="#F3F4F8">
 <link rel="canonical" href="{{ .Permalink }}">
 <link rel="icon" href="data:,">

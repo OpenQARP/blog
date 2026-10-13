@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Renders the RSS feed as a readable page when opened in a browser. Feed readers ignore it. -->
-<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:atom="http://www.w3.org/2005/Atom">
+<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">
   <xsl:output method="html" encoding="utf-8" indent="yes"/>
   <xsl:template match="/">
     <html lang="en">
@@ -41,7 +41,7 @@
           <ol>
             <xsl:for-each select="/rss/channel/item">
               <li>
-                <time><xsl:value-of select="substring(pubDate, 1, 16)"/></time>
+                <time><xsl:value-of select="substring(pubDate, 1, 16)"/><xsl:for-each select="dc:creator"> · <xsl:value-of select="."/></xsl:for-each></time>
                 <h2><a href="{link}"><xsl:value-of select="title"/></a></h2>
                 <p><xsl:value-of select="description"/></p>
                 <xsl:for-each select="category"><span class="tag"><xsl:value-of select="."/></span></xsl:for-each>
