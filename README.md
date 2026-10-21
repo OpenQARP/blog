@@ -101,8 +101,8 @@ workflow. One-time settings in the repo: Settings → Pages → Source
 the certificate check passes. The DNS record is `blog CNAME openqarp.github.io`
 in the `openqarp.com` zone.
 
-The first deploy includes one markdown post, `site/content/posts/introducing-openqarp/`,
-and an empty `posts.yaml`. The first notebook post arrives with the first use case.
+The deploy carries the markdown posts under `site/content/posts/` and an empty
+`posts.yaml`. The first notebook post arrives with the first use case.
 
 ## Post kinds and tags
 
@@ -112,6 +112,8 @@ readers can follow only what they want:
 | Kind | Tag | Form |
 |---|---|---|
 | Releases, workshops, talks, events, collaborations | `news` | markdown |
+| Guides to installing and using the framework | `tutorial` | markdown |
+| Conversations with the people who build and use the framework | `interview` | markdown |
 | Worked problems from a domain | `use-case` | notebook |
 | Recent algorithms implemented in OpenQARP | `research-radar` | notebook |
 | PhD-hosted write-ups of work implemented in OpenQARP | `contribution` | notebook |

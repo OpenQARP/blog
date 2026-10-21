@@ -172,6 +172,8 @@ html.still #motion-toggle { opacity: 0.85; }
 .prose li + li { margin-top: 0.35em; }
 .prose blockquote { border-left: 3px solid var(--line-strong); padding-left: 16px; color: var(--ink-2); }
 .prose img { max-width: 100%; height: auto; display: block; margin: 1.6em auto; border-radius: 6px; }
+.prose figure { margin: 1.6em 0; }
+.prose figure img { margin: 0 auto; }
 .prose figure figcaption { text-align: center; color: var(--mist); font-size: 0.9rem; margin-top: 8px; }
 .prose table { border-collapse: collapse; width: 100%; font-size: 0.95rem; }
 .prose th, .prose td { padding: 8px 10px; border-bottom: 1px solid var(--line); text-align: left; }
