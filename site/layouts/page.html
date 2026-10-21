@@ -6,7 +6,10 @@
     <h1>{{ .Title }}</h1>
     <p class="lede">{{ .Params.summary }}</p>
     {{ with $authors }}
-    <p class="byline">By {{ range $i, $a := . }}{{ if $i }}; {{ end }}{{ if $a.url }}<a href="{{ $a.url }}" rel="author">{{ $a.name }}</a>{{ else }}{{ $a.name }}{{ end }}{{ with $a.affiliation }}, {{ . }}{{ end }}{{ end }}</p>
+    {{- /* Authors who all share one affiliation are named together before it; otherwise each carries their own. */}}
+    {{- $shared := (index . 0).affiliation }}{{ range . }}{{ if ne .affiliation $shared }}{{ $shared = "" }}{{ end }}{{ end }}
+    {{- $n := len . }}
+    <p class="byline">By {{ range $i, $a := . }}{{ if $i }}{{ if $shared }}{{ if eq $i (sub $n 1) }} and {{ else }}, {{ end }}{{ else }}; {{ end }}{{ end }}{{ if $a.url }}<a href="{{ $a.url }}" rel="author">{{ $a.name }}</a>{{ else }}{{ $a.name }}{{ end }}{{ if not $shared }}{{ with $a.affiliation }}, {{ . }}{{ end }}{{ end }}{{ end }}{{ with $shared }}, {{ . }}{{ end }}</p>
     {{ end }}
     <div class="meta">
       {{ range .Params.tags }}<a class="tag" href="{{ (printf "/tags/%s/" (urlize .)) | relURL }}">{{ . }}</a>{{ end }}

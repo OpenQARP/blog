@@ -29,7 +29,7 @@ A slug lives in exactly one of the two places.
      title: "…"
      summary: "…"
      authors: [<id>]  # ids from site/data/authors.yaml
-     tags: [vqe]
+     tags: [use-case, vqe]  # the kind first, topical tags after
      math: true  # loads KaTeX; omit when there is no math
      cover: convergence.png  # optional: a figure from figures/<slug>/, shown next to the post in the list
    ```
@@ -48,7 +48,7 @@ title: "…"
 date: 2026-09-20
 summary: "…"
 authors: [<id>]  # ids from site/data/authors.yaml
-tags: [release]
+tags: [news, release]  # the kind first, topical tags after
 math: true  # loads KaTeX; omit when there is no math
 cover: hero.png  # optional: an image in the post folder, shown next to the post in the list
 ---

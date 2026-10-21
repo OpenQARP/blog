@@ -1,8 +1,5 @@
 # One entry per author. Posts list these ids under `authors`.
 # name is required; affiliation and url are optional.
-fre-quantum-team:
-  name: FRE Quantum Team
-  affiliation: Fujitsu Research of Europe
 stefano-scali:
   name: Stefano Scali
   affiliation: Fujitsu Research of Europe
