@@ -83,6 +83,22 @@ Other | 51.9
 {{< /bars >}}
 ```
 
+## What a post gets for free
+
+Every heading carries a hover anchor. A post over about 1,200 words shows an "In this post"
+list of its level-two headings under the lede. After the share row come the older and newer
+posts, up to three more of the same kind, and a link to GitHub Discussions. The dateline shows
+the reading time. Each kind's one-line description, shown on its tag page, is in
+`site/data/kinds.yaml`; keep it in step with the table below.
+
+## Lead-ins
+
+A sentence or two that opens a section, set apart in a box:
+
+```
+{{< lead >}}But first, let's go back to the problem that inspired OpenQARP.{{< /lead >}}
+```
+
 ## Local setup
 
 ```bash
@@ -121,8 +137,10 @@ readers can follow only what they want:
 Add topical tags after the kind (`vqe`, `chemistry`, `release`, …).
 
 Every post gets a small dot sketch next to it in the list, generated from its
-address. Set `cover` in the front matter (or the manifest) to show an image
-from the post's folder instead; square images look best.
+address. Set `thumb` in the front matter to use one of the drawn glyphs in
+`site/layouts/_partials/thumbs/` instead (`bell-circuit`, `layers`, `dialogue`;
+add a new one as an inline SVG on a 96 by 96 canvas using the colour tokens).
+Set `cover` to show an image from the post's folder; square images look best.
 
 A shared link shows `site/static/card.png` as its preview image. A post with a PNG
 or JPEG `cover` shows the cover instead, as a small square card.

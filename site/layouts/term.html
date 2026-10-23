@@ -1,4 +1,4 @@
 {{ define "main" }}
-<header class="page-head"><h1>Tagged “{{ .Title }}”</h1></header>
+<header class="page-head"><h1>Tagged “{{ .Title }}”</h1>{{ with index hugo.Data.kinds .Data.Term }}<p class="lede">{{ . }}</p>{{ end }}</header>
 {{ partial "post-list.html" .Pages }}
 {{ end }}

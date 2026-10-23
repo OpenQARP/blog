@@ -1,0 +1,15 @@
+{{- /* What follows a post: the neighbours in time, more of the same kind, and the place to discuss it. */ -}}
+{{- $kind := index .Params.tags 0 -}}
+{{- $more := slice -}}
+{{- range where .Site.RegularPages "Section" "posts" }}{{ if and (ne .Permalink $.Permalink) (in .Params.tags $kind) }}{{ $more = $more | append . }}{{ end }}{{ end -}}
+<nav class="post-end" aria-label="Read on">
+  <div class="post-end-row">
+    {{ with .PrevInSection }}<a class="post-end-link" href="{{ .RelPermalink }}"><span class="post-end-label">Older</span>{{ .Title }}</a>{{ end }}
+    {{ with .NextInSection }}<a class="post-end-link next" href="{{ .RelPermalink }}"><span class="post-end-label">Newer</span>{{ .Title }}</a>{{ end }}
+  </div>
+  {{ with first 3 $more }}
+  <p class="post-end-label">More <a href="{{ (printf "/tags/%s/" (urlize $kind)) | relURL }}">{{ $kind }}</a> posts</p>
+  <ul class="post-end-more">{{ range . }}<li><a href="{{ .RelPermalink }}">{{ .Title }}</a></li>{{ end }}</ul>
+  {{ end }}
+  <p class="post-end-discuss">Questions or thoughts on this post? <a href="{{ .Site.Params.repoURL }}/discussions">Discuss it on GitHub</a>.</p>
+</nav>

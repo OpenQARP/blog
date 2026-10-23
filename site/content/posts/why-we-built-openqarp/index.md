@@ -1,28 +1,28 @@
 ---
 title: "Why we built OpenQARP and where it goes next"
 date: 2026-10-23
-summary: "Two of the people behind OpenQARP on why Fujitsu Research of Europe built an open-source framework for quantum application research, what it is for, and where it goes next."
+summary: "OpenQARP started as a solution to a practical problem in our own quantum research. Two years later, it has grown into an open-source framework with ambitions that extend well beyond Fujitsu."
 authors: [serban-georgescu, josh-kirsopp]
+thumb: dialogue
 tags: [interview, architecture, open-source]
 ---
+OpenQARP started as a solution to a practical problem in our own quantum research. Two years later, it has grown into an open-source framework with ambitions that extend well beyond Fujitsu.
 
-*OpenQARP started as a solution to a practical problem in our own quantum research. Two years later, it has grown into an open-source framework with ambitions that extend well beyond Fujitsu.*
-
-*In this article, we share the story behind OpenQARP, what it offers developers and researchers today, and where we hope to take it next. We explore the research opportunities it opens up, our ambitions for an open community, the thinking behind its architecture, and how it fits into Fujitsu's wider quantum strategy.*
+In this article, we share the story behind OpenQARP, what it offers developers and researchers today, and where we hope to take it next. We explore the research opportunities it opens up, our ambitions for an open community, the thinking behind its architecture, and how it fits into Fujitsu's wider quantum strategy.
 
 ## The problem, and what makes OpenQARP different
 
-*But first, let's go back to the problem that inspired OpenQARP and what makes the framework different.*
+{{< lead >}}But first, let's go back to the problem that inspired OpenQARP and what makes the framework different.{{< /lead >}}
 
 **Where did the idea for OpenQARP come from, and why did you decide to develop it further?**
 
-**Josh**: I was collaborating with colleagues on quantum chemistry applications, and we were all using different tools, despite every project starting in much the same way. We each had our own versions of the pipeline, with different conventions. Comparing methods meant reconciling scripts before we could even look at the chemistry. We developed a lightweight package to align those conventions, and that became the beginning of OpenQARP.
+**Josh**: I was collaborating with colleagues on quantum chemistry applications, and we were all using different tools, despite every project starting in much the same way. We each had our own versions of the pipeline, with different conventions. Comparing methods meant spending time reconciling conventions across scripts. We developed a lightweight package to align those conventions, and that became the beginning of OpenQARP.
 
 **Serban**: Two things convinced me it was worth investing in. First, it already worked. The team had built it for its own research, and partners were using a beta through joint research and the Quantum Simulator Challenge. Second, there was a strategic opportunity. While we designed OpenQARP to be hardware independent, it aligned with Fujitsu's quantum computing plans. The company was developing quantum hardware, simulators and a hybrid quantum computing platform, and needed an application layer that researchers outside Fujitsu could use.
 
 **What problem is OpenQARP designed to solve?**
 
-**Josh**: The connections between tools. The ecosystem has good tools for individual steps: circuit SDKs, compilers, simulators and operator libraries. But connecting them into groups takes time, because each package has its own qubit ordering, phase conventions and performance limits. Convention mistakes in quantum software rarely crash. They produce plausible, wrong physics.
+**Josh**: The connections between tools. The ecosystem has good tools for individual steps: circuit SDKs, compilers, simulators and operator libraries. But connecting them into groups takes time, because each package has its own qubit ordering, phase conventions and performance limits. Convention mistakes in quantum software rarely crash. Instead, they often produce plausible but incorrect results.
 
 **Serban**: Fragmentation and disposable code are holding quantum application research back. Every group rebuilds the same steps: a molecule to a Hamiltonian, a Hamiltonian to a circuit, a circuit to a simulator. Each version has its own conventions. Results from two groups are hard to compare, and when a result disagrees with a paper it is not clear which side is wrong.
 
@@ -36,7 +36,7 @@ Most of the problems we saw were convention problems: qubit order, factors of tw
 
 **Why should developers already using tools such as Qiskit or PennyLane consider OpenQARP?**
 
-**Josh**: They can retain their circuits and their knowledge from their existing workflow. OpenQARP converts circuits to and from Qiskit, PennyLane, pytket, qulacs and OpenQASM, and writes QIR, so an existing circuit comes in as a block and goes back out when needed. What they gain is the application layer: more than thirty algorithms and primitives that run on a molecule or a graph, a compiled core for operator algebra, compilation and simulation, and a test suite that checks numbers against references. The way to find out is to run your own problem, time it, and check the result. You're never locked in. The package exists as a complement to existing tools.
+**Josh**: They can retain their circuits and their knowledge from their existing workflow. OpenQARP converts circuits to and from Qiskit, PennyLane, pytket, qulacs and OpenQASM, and writes QIR, so an existing circuit comes in as a block and goes back out when needed. What they gain is the application layer: more than thirty algorithms and primitives that run on a molecule or a graph, a compiled core for operator algebra, compilation and simulation, and a test suite that checks numbers against references. You're never locked in. The package exists as a complement to existing tools.
 
 **What would you like OpenQARP to be known for that distinguishes it from other tools?**
 
@@ -44,11 +44,11 @@ Most of the problems we saw were convention problems: qubit order, factors of tw
 
 ## Applications and research
 
-*We want researchers and developers to put OpenQARP to work on their own problems, explore new applications and build a body of knowledge.*
+{{< lead >}}We want researchers and developers to put OpenQARP to work on their own problems, explore new applications and build a body of knowledge.{{< /lead >}}
 
 **Who is OpenQARP designed for, and what can developers achieve with it today?**
 
-**Josh**: A researcher who knows the physics, wants to try an idea at a meaningful size today, and needs to trust the number. That may be a PhD student implementing a method from a paper, a chemist who has never written a circuit, or a developer in a company finding out whether a quantum approach helps with their problem. It is not designed for hand-tuning gates for a specific chip, although that is possible. The design priorities follow from the audience: the physics stays in the foreground, the engine stays out of the way, and results come back in a form that can be checked.
+**Josh**: A researcher who knows the physics, wants to try an idea, and needs to trust the number. That may be a PhD student implementing a method from a paper, a chemist who has never written a circuit, or a developer in a company finding out whether a quantum approach helps with their problem. The design priorities follow from the audience: the problem stays in the foreground, the engine stays out of the way, and results come back in a form that can be checked.
 
 **Serban**: Developers can establish what a method costs at the problem size that matters. They can design and test algorithms in simulation with full access to the state, which hardware never gives.
 
@@ -72,13 +72,13 @@ They can build the classical parts that are needed whatever the hardware looks l
 
 ## Open source and the community
 
-*Making OpenQARP open source was a deliberate decision and building a community is a key part of the vision.*
+{{< lead >}}Making OpenQARP open source was a deliberate decision and building a community is a key part of the vision.{{< /lead >}}
 
 **Why is building an open-source community so important to OpenQARP's future?**
 
 **Serban**: A framework used only inside Fujitsu would not serve its purpose. The value of shared components grows with the number of people sharing them: more review of the conventions, more independent checks on the results, more algorithms contributed. Openness is also how research software earns trust. Anyone can read the tests, rerun the benchmarks and see what a number means. We chose Apache 2.0 because it is permissive, it is the licence the ecosystem already uses, and it includes a patent grant, which matters to a company deciding whether to build on it.
 
-**Josh**: We cannot try every molecule, every graph, every combination of blocks. More users can help us explore, and new users with different ideas shake out the bugs more effectively than anyone else. Moreover, we hope that people working in fields we do not know will tell us what the library needs. Independent verification, too.
+**Josh**: We cannot try every molecule, every graph, every combination of blocks. More users can help us explore, and new users with different ideas shake out the bugs more effectively than anyone else. Moreover, we hope that people working in fields we do not know will tell us what the library needs.
 
 **Serban**: We'd like to see a community of researchers who use it and researchers who extend it, with no sharp line between the two. PhD students contributing their algorithm with its tests. Industry groups trying their problem and reporting where it breaks. People from adjacent fields who know the application but not the physics. Collaboration happens in the open, through the repository, so a discussion about a convention or a method is visible to everyone who comes after. The output is implementations that stay runnable, comparisons on the same basis, and papers that can be rerun.
 
@@ -90,15 +90,15 @@ They can build the classical parts that are needed whatever the hardware looks l
 
 ## Architecture and strategy
 
-*Making all this possible has involved some key decisions, both in how we've designed OpenQARP and how it fits into Fujitsu's wider quantum research.*
+{{< lead >}}Making all this possible has involved some key decisions, both in how we've designed OpenQARP and how it fits into Fujitsu's wider quantum research.{{< /lead >}}
 
 **Why did you organise the framework around blocks, primitives and engines?**
 
-**Josh**: Those are the three questions a quantum experiment answers: what the circuit does, what you want out of it, and how it runs. The research scripts we looked at had the three decisions mixed together, so changing one meant touching all of them. Separating them means a new ansatz works with every primitive and every engine as soon as it exists. The separation has been tested: the engine was rewritten underneath it in 2026 and the three layers stayed as they were.
+**Josh**: At first we didn't. We iteratively arrived at this structure over the course of many refactors until the blocks fell out and we had a clean separation between building circuits and executing them. We arrived at this structure because researchers had some really good ideas and, since we were building for ourselves at that time, we were able to adapt the code quickly.
 
 **Why did you build a Python interface with a C++ core?**
 
-**Josh**: Python is where researchers work. We would not write a VQE loop in C++ to try an idea. The C++ core exists because the Python around the simulator had become the bottleneck. The state-vector kernels were fast. The operator algebra, the circuit construction, the compilation and the overhead between calls were not. For a long time OpenQARP was pure Python on top of a third-party circuit library, and a dependency update could force a hotfix release. Owning the core gives us control of conventions, performance and release timing. The binding layer is thin, and from Python the seam is not visible.
+**Josh**: Python is where researchers work. The C++ core exists because the Python around the simulator had become the bottleneck. The state-vector kernels were fast. The operator algebra, the circuit construction, the compilation and the overhead between calls were not. For a long time OpenQARP was pure Python with a third-party circuit library, and a dependency update could force a hotfix release. Owning the core gives us control of conventions, performance and release timing. The binding layer is thin, and from Python the seam is not visible.
 
 **How does it connect to Fujitsu's wider quantum strategy?**
 
@@ -112,7 +112,7 @@ For a developer this means bugs get fixed, changes are documented in release not
 
 ## The future
 
-*Finally, let's look at the future.*
+{{< lead >}}Finally, let's look at the future.{{< /lead >}}
 
 **How does OpenQARP need to evolve as quantum hardware advances?**
 
@@ -134,4 +134,4 @@ Short of that, an engine for hardware we have never touched, with every algorith
 
 **Josh**: OpenQARP is nothing like what it started as. Over two years the team built on ideas from many people, and those ideas became the three layers we have today. The structure, the C++ core and the test discipline all came later, and none of them were in the original plan.
 
-Watching a project change this much has been fun, and I am curious to see where it goes next. If other developers take it somewhere unexpected, that is the same process continuing outside the team.
+Watching a project change this much has been fun, and I am curious to see where it goes next. If other developers take it somewhere unexpected, that is the same process continuing outside the team and that's what OSS is all about.

@@ -3,6 +3,7 @@ title: "Getting started with OpenQARP"
 date: 2026-10-23
 summary: "From pip install to a working two-qubit experiment: build a Bell state, sample it, measure an observable, and see where blocks, primitives and engines fit. Every output in this post comes from a run of the released package."
 authors: [stefano-scali]
+thumb: bell-circuit
 tags: [tutorial, getting-started, simulation]
 ---
 

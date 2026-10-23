@@ -27,6 +27,7 @@
 
   --sans: "Geist", -apple-system, "Helvetica Neue", Arial, sans-serif;
   --mono: "Geist Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  --serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, "Times New Roman", serif;
 
   --wrap: 720px;
   --gutter: clamp(20px, 4vw, 48px);
@@ -94,6 +95,9 @@ html.still #motion-toggle { opacity: 0.85; }
   backdrop-filter: saturate(160%) blur(12px); -webkit-backdrop-filter: saturate(160%) blur(12px);
 }
 .wordmark { display: inline-flex; align-items: center; height: 34px; padding: 0 12px 0 6px; font-weight: 600; letter-spacing: -0.01em; color: var(--ink); }
+.wordmark-sub { font-weight: 400; font-size: 0.88em; color: var(--mist); letter-spacing: 0; }
+.wordmark-sub::before { content: "–"; margin: 0 0.4em; color: var(--line-strong); }
+.wordmark a:hover { color: var(--cobalt); }
 #menu-toggle .ic-close, #menu-toggle.open .ic-burger { display: none; }
 #menu-toggle.open .ic-close { display: block; }
 #menu-toggle.open { opacity: 1; }
@@ -131,6 +135,9 @@ html.still #motion-toggle { opacity: 0.85; }
 .page-head { margin-bottom: 40px; }
 .page-head h1 { font-size: clamp(1.9rem, 4.5vw, 2.6rem); line-height: 1.15; letter-spacing: -0.02em; font-weight: 600; }
 .page-head time, .dateline { display: block; font-family: var(--mono); font-size: 0.82rem; color: var(--mist); margin-bottom: 10px; }
+.page-head .dateline time { display: inline; margin: 0; }
+.crumb { display: inline-block; font-family: var(--mono); font-size: 0.82rem; color: var(--mist); margin-bottom: 18px; }
+.crumb:hover { color: var(--cobalt); }
 .lede { color: var(--ink-2); font-size: 1.12rem; margin-top: 12px; }
 .intro { color: var(--ink-2); margin-top: 10px; }
 .intro p + p { margin-top: 6px; }
@@ -172,7 +179,10 @@ html.still #motion-toggle { opacity: 0.85; }
 .prose li + li { margin-top: 0.35em; }
 .prose blockquote { border-left: 3px solid var(--line-strong); padding-left: 16px; color: var(--ink-2); }
 .prose img { max-width: 100%; height: auto; display: block; margin: 1.6em auto; border-radius: 6px; }
+/* Figures are exported on white; the card keeps them readable on the dark surface. */
+:root[data-theme="dark"] .prose img { background: #FFFFFF; padding: 8px; box-sizing: border-box; }
 .prose figure { margin: 1.6em 0; }
+.prose .lead { margin: 1.4em 0 1.8em; padding: 18px 24px; border: 1px solid var(--line); border-left: 3px solid var(--cobalt); border-radius: 8px; background: var(--raised); font-family: var(--serif); font-style: italic; font-size: 1.22rem; line-height: 1.5; color: var(--ink-2); }
 .prose figure img { margin: 0 auto; }
 .prose figure figcaption { text-align: center; color: var(--mist); font-size: 0.9rem; margin-top: 8px; }
 .prose table { border-collapse: collapse; width: 100%; font-size: 0.95rem; }
@@ -232,3 +242,50 @@ html.still #motion-toggle { opacity: 0.85; }
 /* footer */
 .footer { display: flex; flex-wrap: wrap; gap: 8px 24px; padding: 28px var(--gutter); border-top: 1px solid var(--line); color: var(--mist); font-size: 0.9rem; }
 .footer a:hover { color: var(--cobalt); }
+
+/* heading anchors: hidden until the heading is hovered or the link focused */
+.prose .anchor { color: var(--mist); text-decoration: none; font-weight: 400; opacity: 0; margin-left: 0.3em; transition: opacity 0.15s; }
+.prose h1:hover .anchor, .prose h2:hover .anchor, .prose h3:hover .anchor, .prose .anchor:focus { opacity: 1; }
+.prose h1, .prose h2, .prose h3 { scroll-margin-top: 24px; }
+
+/* contents list on long posts */
+.toc { margin-top: 32px; padding: 16px 20px 18px; border: 1px solid var(--line); border-radius: 8px; background: var(--raised); font-size: 0.95rem; }
+.toc ul { list-style: none; padding: 0; margin: 0; }
+.toc > nav > ul { margin-top: 8px; counter-reset: toc; }
+.toc > nav > ul > li { counter-increment: toc; display: grid; grid-template-columns: 2em minmax(0, 1fr); column-gap: 4px; }
+.toc > nav > ul > li::before { content: counter(toc, decimal-leading-zero); font-family: var(--mono); font-size: 0.8rem; color: var(--mist); padding-top: 3px; }
+.toc li + li { margin-top: 6px; }
+.toc > nav > ul > li + li { margin-top: 10px; }
+.toc ul ul { grid-column: 2; margin-top: 6px; padding-left: 0; border-left: 1px solid var(--line); }
+.toc ul ul li { padding-left: 12px; font-size: 0.9rem; }
+.toc a { color: var(--ink); text-decoration: none; }
+.toc ul ul a { color: var(--ink-2); }
+.toc a:hover { color: var(--cobalt); text-decoration: underline; text-underline-offset: 3px; }
+
+/* after a post: neighbours, more of the kind, discussion */
+.post-end { margin-top: 48px; padding-top: 28px; border-top: 1px solid var(--line); }
+.post-end-label { display: block; font-family: var(--mono); font-size: 0.78rem; font-weight: 400; color: var(--mist); text-transform: uppercase; letter-spacing: 0.04em; margin: 0 0 6px; }
+.post-end-label a { color: inherit; }
+.post-end-row { display: flex; justify-content: space-between; gap: 16px 32px; flex-wrap: wrap; }
+.post-end-link { flex: 1 1 220px; color: var(--ink); font-weight: 500; font-size: 1rem; line-height: 1.35; text-decoration: none; }
+.post-end-link.next { text-align: right; margin-left: auto; }
+.post-end-link:hover { color: var(--cobalt); }
+.post-end-more { list-style: none; padding: 0; margin: 0; }
+.post-end-more li + li { margin-top: 6px; }
+.post-end-more a { color: var(--ink-2); text-decoration: underline; text-decoration-color: var(--line-strong); text-underline-offset: 3px; }
+.post-end-more a:hover { color: var(--cobalt); }
+.post-end-row + .post-end-label { margin-top: 32px; }
+.post-end-discuss { margin-top: 32px; color: var(--ink-2); font-size: 0.95rem; }
+.post-end-discuss a { color: var(--cobalt); text-decoration: underline; text-underline-offset: 3px; }
+
+/* keyboard users: the first tab stop jumps past the chrome */
+.skip { position: absolute; left: 16px; top: -48px; z-index: 50; padding: 8px 12px; border-radius: 8px; background: var(--raised); color: var(--ink); border: 1px solid var(--line-strong); text-decoration: none; font-size: 0.9rem; }
+.skip:focus { top: 16px; }
+
+@media print {
+  .brand, .corner, .field, .skip, .share, .post-end, .toc, .footer, .anchor, .copy-btn { display: none !important; }
+  body { background: #fff; color: #000; }
+  .wrap { max-width: none; padding: 0; }
+  .prose a::after { content: " (" attr(href) ")"; font-size: 0.85em; color: #555; }
+  .prose pre { border: 1px solid #ccc; white-space: pre-wrap; }
+}

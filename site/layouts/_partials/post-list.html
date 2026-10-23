@@ -3,10 +3,10 @@
   <li class="post-card">
     <a class="card-art" href="{{ .RelPermalink }}" tabindex="-1" aria-hidden="true">
       {{- $page := . }}{{ $cover := "" }}{{ with .Params.cover }}{{ with $page.Resources.GetMatch . }}{{ $cover = .RelPermalink }}{{ end }}{{ end }}
-      {{- if $cover }}<img src="{{ $cover }}" alt="" loading="lazy">{{ else }}{{ partial "sketch.html" . }}{{ end }}
+      {{- if $cover }}<img src="{{ $cover }}" alt="" loading="lazy">{{ else }}{{ with .Params.thumb }}{{ partial (printf "thumbs/%s.html" .) $page }}{{ else }}{{ partial "sketch.html" $page }}{{ end }}{{ end }}
     </a>
     <div class="card-body">
-    <div class="dateline"><time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2 January 2006" }}</time>{{ range partial "post-authors.html" . }} · {{ .name }}{{ end }}</div>
+    <div class="dateline"><time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2 January 2006" }}</time>{{ range partial "post-authors.html" . }} · {{ .name }}{{ end }} · {{ .ReadingTime }} min read</div>
     <h2><a href="{{ .RelPermalink }}">{{ .Title }}</a></h2>
     <p>{{ .Params.summary }}</p>
     <div class="meta">
