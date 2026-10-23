@@ -40,6 +40,9 @@ enableRobotsTXT = true
   term = ["html", "rss"]
 
 [markup]
+  [markup.tableOfContents]
+    startLevel = 2
+    endLevel = 3
   [markup.goldmark.renderer]
     unsafe = true
   [markup.goldmark.extensions.passthrough]

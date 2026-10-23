@@ -2,7 +2,8 @@
 {{ $authors := partial "post-authors.html" . }}
 <article class="post">
   <header class="page-head">
-    <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2 January 2006" }}</time>
+    <a class="crumb" href="{{ "/" | relURL }}">← All posts</a>
+    <p class="dateline"><time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2 January 2006" }}</time> · {{ .ReadingTime }} min read</p>
     <h1>{{ .Title }}</h1>
     <p class="lede">{{ .Params.summary }}</p>
     {{ with $authors }}
@@ -20,7 +21,11 @@
       <a class="link-arrow" href="{{ . }}">Run this notebook</a></p>
     {{ end }}
   </header>
+  {{ if and (gt .WordCount 1200) (strings.Contains (string .TableOfContents) "<li>") }}
+  <nav class="toc" aria-label="In this post"><p class="post-end-label">In this post</p>{{ .TableOfContents }}</nav>
+  {{ end }}
   <div class="prose">{{ .Content }}</div>
   {{ partial "share.html" . }}
+  {{ partial "post-end.html" . }}
 </article>
 {{ end }}

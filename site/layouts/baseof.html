@@ -4,9 +4,10 @@
 {{ partial "head.html" . }}
 </head>
 <body{{ if .IsPage }} class="is-post"{{ end }}>
+<a class="skip" href="#main">Skip to content</a>
 {{ partial "chrome.html" . }}
 <canvas id="field" class="field" aria-hidden="true"></canvas>
-<main class="wrap">
+<main class="wrap" id="main">
 {{ block "main" . }}{{ end }}
 </main>
 {{ partial "footer.html" . }}
