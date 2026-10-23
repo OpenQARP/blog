@@ -101,4 +101,4 @@ We'll share practical tutorials, technical insights, research applications, perf
 
 Quantum computing still has significant challenges to overcome. But there's no reason to wait for tomorrow's quantum computers before developing tomorrow's quantum applications. OpenQARP provides the tools to start exploring today. We look forward to discovering what we can build together.
 
-Explore OpenQARP on [GitHub](https://github.com/OpenQARP/openqarp), read the [documentation](https://openqarp.github.io/openqarp/), and join the community on [GitHub Discussions](https://github.com/OpenQARP/openqarp/discussions)!
+Explore OpenQARP on [GitHub](https://github.com/OpenQARP/openqarp), read the [documentation](https://docs.openqarp.com/), and join the community on [GitHub Discussions](https://github.com/OpenQARP/openqarp/discussions)!

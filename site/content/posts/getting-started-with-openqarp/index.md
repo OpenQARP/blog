@@ -31,7 +31,7 @@ Python 3.11 to 3.14, and wheels ship for Linux (x86_64 and arm64), macOS
 Anywhere else `pip` builds the C++ core from source, which takes a few
 minutes and a compiler. Use a fresh virtual environment for your
 experiments, and see the
-[installation guide](https://openqarp.github.io/openqarp/source/installation.html)
+[installation guide](https://docs.openqarp.com/source/installation.html)
 for GPU support and build options.
 
 Check that it imports:
@@ -300,9 +300,9 @@ bigger blocks.
 - The six tutorial notebooks, `tutorial_00` to `tutorial_05` in the
   [examples directory](https://github.com/OpenQARP/openqarp/tree/develop/examples),
   take about an hour end to end, and the
-  [OpenQARP Tutorial](https://openqarp.github.io/openqarp/source/tutorial.html)
+  [OpenQARP Tutorial](https://docs.openqarp.com/source/tutorial.html)
   is the same path in the documentation.
-- The [documentation](https://openqarp.github.io/openqarp/) has the API
+- The [documentation](https://docs.openqarp.com/) has the API
   reference, and the
   [benchmark harness](https://github.com/OpenQARP/openqarp/tree/develop/benchmarks)
   has the method behind every published timing.

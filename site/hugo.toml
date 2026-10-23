@@ -6,8 +6,8 @@ enableRobotsTXT = true
 
 [params]
   description = "News, use cases and research around OpenQARP, the open-source framework for quantum application research."
-  siteURL = "https://openqarp.github.io/"
-  docsURL = "https://openqarp.github.io/openqarp/"
+  siteURL = "https://openqarp.com/"
+  docsURL = "https://docs.openqarp.com/"
   repoURL = "https://github.com/OpenQARP/openqarp"
 
 [module]
