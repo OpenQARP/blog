@@ -138,7 +138,7 @@ Add topical tags after the kind (`vqe`, `chemistry`, `release`, …).
 
 Every post gets a small dot sketch next to it in the list, generated from its
 address. Set `thumb` in the front matter to use one of the drawn glyphs in
-`site/layouts/_partials/thumbs/` instead (`bell-circuit`, `layers`, `dialogue`, `ethylene`;
+`site/layouts/_partials/thumbs/` instead (`bell-circuit`, `layers`, `dialogue`, `ethylene`, `market-cut`;
 add a new one as an inline SVG on a 96 by 96 canvas using the colour tokens).
 Set `cover` to show an image from the post's folder; square images look best.
 
