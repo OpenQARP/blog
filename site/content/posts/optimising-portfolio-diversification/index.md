@@ -19,6 +19,9 @@ QAOA.
 We'll see how the approach works, compare its performance with classical
 methods, and explore its potential to tackle much larger problems.
 
+Follow along in the
+[accompanying notebook](https://github.com/OpenQARP/openqarp/blob/develop/examples/use_cases/finance_portfolio_diversification.ipynb).
+
 ## The problem
 
 Diversification is one piece of investing advice that holds up under
