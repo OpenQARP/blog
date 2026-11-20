@@ -1,7 +1,7 @@
 ---
 title: "OpenQARP 0.2.0: new algorithms, faster simulation and improved developer tools"
 date: 2026-11-20
-summary: "OpenQARP 0.2.0 is on PyPI. The simulator reads the structure of a circuit and runs each piece as the cheapest exact kernel, quantum-selected configuration interaction joins the algorithms, sampling results become objects, and the compiled backend ships with type stubs. Every number in this post comes from running the released wheels."
+summary: "OpenQARP 0.2.0 is on PyPI. The simulator reads the structure of a circuit and runs each piece as the cheapest exact kernel, quantum-selected configuration interaction joins the algorithms, sampling results become objects, and the compiled backend ships with type stubs."
 authors: [stefano-scali]
 thumb: kernels
 tags: [news, release, simulation, chemistry]
